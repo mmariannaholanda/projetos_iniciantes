@@ -1,0 +1,109 @@
+#calculadora inteligente de compras
+
+continuar = 's'
+soma = 0
+produtos = []
+valores = []
+contador = 0
+
+
+# função para listar a conta final
+def listar(produtos, valores):
+    print('Conta:')
+    for i in range(len(produtos)):
+        print(f'{produtos[i]} - R${valores[i]:.2f}')
+
+# função para calcular desconto
+def calcular_desconto(preco, porcentagem):
+    valor_final = preco - ((preco * porcentagem) / 100)
+    return valor_final
+
+# função para mostrar resumo do produto
+def mostrar_resumo(nome_do_produto, preco, porcentagem, valor_final):
+    print()
+    print(f'Nome do produto: {nome_do_produto}')
+    print(f'Preço original: R${preco:.2f}')
+    print(f'Desconto: {porcentagem}%')
+    print()
+    print(f'Preço final: R${valor_final:.2f}')
+
+# programa principal
+maximo = float(input('Qual o máximo que você quer gastar? '))
+
+while continuar == 's':
+    nome_do_produto = input('Qual o nome do produto? ')
+    preco = float(input('Qual o valor inicial? '))
+    porcentagem = float(input('Qual o desconto você conseguiu (em %) ? '))
+    
+
+    valor_final = calcular_desconto(preco, porcentagem)
+
+    produtos.append(nome_do_produto)
+    valores.append(valor_final)
+
+    soma += valor_final
+    contador += 1
+
+    mostrar_resumo(nome_do_produto, preco, porcentagem, valor_final)
+
+    if contador == 1:
+        print(f'Você já cadastrou {contador} produto.')
+    else:
+        print(f'Você já cadastrou {contador} produtos.')
+
+    print(f'Soma de todos os produtos até agora: R${soma:.2f}')
+
+
+    saldo = maximo - soma
+
+    if saldo < 0:
+      excesso = abs(saldo)  # pega o valor sem sinal
+      print(f"Você passou R${excesso:.2f} do seu saldo")
+    else:
+      print(f"Ainda restam R${saldo:.2f}")
+
+
+    continuar = input('Quer adicionar? (s/n) ').strip().lower()
+
+    while continuar != 's' and continuar != 'n':
+        print('Resposta inválida.')
+        continuar = input('Quer adicionar? (s/n) ').strip().lower()
+
+print()
+print('Você terminou de adicionar produtos.')
+listar(produtos, valores)
+print()
+print(f'Valor total final: R${soma:.2f}')
+
+#---------------------------
+maior = valores[0]
+menor = valores[0]
+pos_maior = 0
+pos_menor = 0
+#--------------------------
+
+if len(produtos) != 0:
+    media = (soma/(len(produtos)))
+    print(f'A média dos valores dos produtos é: {media}!!')
+else:
+  print('Impossível calcular a média já que existem 0 produtos.')
+
+# vendo qual é o maior número
+
+for i in range(len(valores)):
+    n = valores[i]  
+
+
+    if n > maior:
+        maior = n
+        pos_maior = i
+
+    if n < menor:
+        menor = n
+        pos_menor = i
+
+
+
+
+print(f'Produto mais caro: {maior} - {produtos[pos_maior]}')
+print(f'Produto mais barato: {menor}- {produtos[pos_menor]}')
