@@ -30,6 +30,9 @@ def mostrar_resumo(nome_do_produto, preco, porcentagem, valor_final):
 # programa principal
 maximo = float(input('Qual o máximo que você quer gastar? '))
 
+
+#inicio do programa-----------------------------------------------------------------------
+
 while continuar == 's':
     nome_do_produto = input('Qual o nome do produto? ')
     preco = float(input('Qual o valor inicial? '))
@@ -38,9 +41,11 @@ while continuar == 's':
 
     valor_final = calcular_desconto(preco, porcentagem)
 
+#adicionando na lista
     produtos.append(nome_do_produto)
     valores.append(valor_final)
 
+#ajustando outros parâmetros
     soma += valor_final
     contador += 1
 
@@ -57,8 +62,9 @@ while continuar == 's':
     saldo = maximo - soma
 
     if saldo < 0:
-      excesso = abs(saldo)  # pega o valor sem sinal
-      print(f"Você passou R${excesso:.2f} do seu saldo")
+      excesso = abs(saldo)
+      print(f"Você passou R${excesso:.2f} do seu saldo.")
+
     else:
       print(f"Ainda restam R${saldo:.2f}")
 
